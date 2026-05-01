@@ -1,26 +1,127 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ── Puyo Puyo カスタムテーマ ─────────────────────────────────── */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Puyo colors */
+  --color-puyo-red: #ff4444;
+  --color-puyo-blue: #4488ff;
+  --color-puyo-green: #44cc44;
+  --color-puyo-yellow: #ffcc00;
+  --color-puyo-purple: #cc44ff;
+  --color-puyo-ojama: #888888;
+
+  /* Custom animations */
+  --animate-puyo-pop: puyo-pop 0.45s ease-in-out;
+  --animate-chain-flash: chain-flash 0.35s ease-out;
+  --animate-chain-badge: chain-badge 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --animate-float-a: float-a 7s ease-in-out infinite;
+  --animate-float-b: float-b 9s ease-in-out infinite;
+  --animate-float-c: float-c 11s ease-in-out infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #080818;
+  --foreground: #e8e8f0;
 }
 
+/* Always dark */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+}
+
+/* ── Keyframe animations ────────────────────────────────────── */
+
+/* Puyo pop (disappear) animation */
+@keyframes puyo-pop {
+  0%   { transform: scale(1);    opacity: 1;   filter: brightness(1); }
+  25%  { transform: scale(1.3);  opacity: 1;   filter: brightness(2); }
+  50%  { transform: scale(1.15); opacity: 0.8; filter: brightness(1.5); }
+  75%  { transform: scale(0.6);  opacity: 0.4; filter: brightness(1); }
+  100% { transform: scale(0);    opacity: 0;   filter: brightness(1); }
+}
+
+/* Chain flash overlay */
+@keyframes chain-flash {
+  0%   { opacity: 0; }
+  30%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Chain badge bounce-in */
+@keyframes chain-badge {
+  0%   { transform: translateX(-50%) scale(0.5); opacity: 0; }
+  70%  { transform: translateX(-50%) scale(1.1); opacity: 1; }
+  100% { transform: translateX(-50%) scale(1);   opacity: 1; }
+}
+
+/* Floating ambient orbs */
+@keyframes float-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -40px) scale(1.05); }
+  66%       { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+@keyframes float-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%       { transform: translate(-35px, 30px) scale(1.08); }
+  70%       { transform: translate(20px, -20px) scale(0.94); }
+}
+
+@keyframes float-c {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(25px, 35px) scale(1.06); }
+}
+
+/* ── Utility animation classes ─────────────────────────────── */
+
+.animate-puyo-pop {
+  animation: var(--animate-puyo-pop);
+  animation-fill-mode: forwards;
+}
+
+.animate-chain-flash {
+  animation: var(--animate-chain-flash);
+}
+
+.animate-chain-badge {
+  animation: var(--animate-chain-badge);
+  animation-fill-mode: both;
+}
+
+.animate-float-a {
+  animation: var(--animate-float-a);
+}
+
+.animate-float-b {
+  animation: var(--animate-float-b);
+}
+
+.animate-float-c {
+  animation: var(--animate-float-c);
+}
+
+/* ── Scrollbar styling (dark theme) ─────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(20, 20, 40, 0.5);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 80, 200, 0.4);
+  border-radius: 3px;
+}
+
+/* ── Focus styles ────────────────────────────────────────────── */
+button:focus-visible {
+  outline: 2px solid rgba(150, 100, 255, 0.8);
+  outline-offset: 2px;
 }
