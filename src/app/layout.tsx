@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ぷよぷよ — Puyo Puyo",
-  description: "モダンUIのぷよぷよゲーム。Next.js 16 + React 19 + TypeScript + Tailwind CSS v4で実装。",
+  title: "あおぞら薬局 | 地域に根ざした調剤薬局",
+  description: "地域の皆様の健康を笑顔でサポートする調剤薬局です。処方せん受付・健康相談・市販薬販売など、幅広いサービスをご提供しています。",
 };
 
 export default function RootLayout({
@@ -27,7 +27,7 @@ export default function RootLayout({
       lang="ja"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col bg-white">{children}</body>
     </html>
   );
 }
